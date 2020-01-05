@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ticket_master.Models;
 
 namespace ticket_master.Migrations
 {
     [DbContext(typeof(TicketMasterDbContext))]
-    partial class TicketMasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200105232253_StartMigration")]
+    partial class StartMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
