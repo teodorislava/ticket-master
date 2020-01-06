@@ -82,6 +82,7 @@ namespace ticket_master
             });
             app.UseOpenApi();
             app.UseSwaggerUi3();
+            app.UseOpenApi();
         }
     }
 }
