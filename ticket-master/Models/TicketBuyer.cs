@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ticket_master.Models
 {
-    public class User
+    public class TicketBuyer
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

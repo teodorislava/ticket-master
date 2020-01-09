@@ -9,35 +9,35 @@ namespace ticket_master.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class TicketBuyersController : ControllerBase
     {
-        public UsersController()
+        public TicketBuyersController()
         {
         }
 
         // GET api/users
         [HttpGet("")]
-        public ActionResult<IEnumerable<User>> GetUsers()
+        public ActionResult<IEnumerable<TicketBuyer>> GetUsers()
         {
-            return new List<User> { };
+            return new List<TicketBuyer> { };
         }
 
         // GET api/users/5
         [HttpGet("{id}")]
-        public ActionResult<User> GetUserById(int id)
+        public ActionResult<TicketBuyer> GetUserById(int id)
         {
             return null;
         }
 
         // POST api/users
         [HttpPost("")]
-        public void PostUser(User value)
+        public void PostUser(TicketBuyer value)
         {
         }
 
         // PUT api/users/5
         [HttpPut("{id}")]
-        public void PutUser(int id, User value)
+        public void PutUser(int id, TicketBuyer value)
         {
         }
 

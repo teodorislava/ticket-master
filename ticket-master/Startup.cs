@@ -1,11 +1,17 @@
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ticket_master.Attributes;
 using ticket_master.Models;
 
 namespace ticket_master
@@ -22,22 +28,49 @@ namespace ticket_master
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+                services.AddDbContext<TicketMasterDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"]));
+
+
+ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options => {
+                options.Events.OnRedirectToAccessDenied = context => {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+            });
+            services.AddIdentity<AuthRootTable, IdentityRole>()
+            .AddRoles<IdentityRole>()
+            .AddRoleManager<RoleManager<IdentityRole>>()
+            .AddEntityFrameworkStores<TicketMasterDbContext>();
+           
+            services.AddAuthorization(options => 
+            {
+                
+                options.AddPolicy("RequireClient",
+                    policy => policy.RequireRole("CLIENT"));
+                
+                options.AddPolicy("RequireOrganisation",
+                    policy => policy.RequireRole("ORGANISATION"));
+            });
+
             services.AddControllersWithViews();
+            services.AddMvcCore();
+            services.AddRouting();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
             services.AddSwaggerDocument();
-
-            services.AddDbContext<TicketMasterDbContext>(options =>
-                options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"]));
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //app.UseIdentityServer();
+            
             var ctx = app.ApplicationServices.GetRequiredService<TicketMasterDbContext>();
             ctx.Database.Migrate();
 
@@ -54,12 +87,15 @@ namespace ticket_master
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
-
-            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
@@ -74,15 +110,14 @@ namespace ticket_master
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
-
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
             app.UseOpenApi();
             app.UseSwaggerUi3();
-            app.UseOpenApi();
         }
     }
 }
