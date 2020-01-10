@@ -32,8 +32,16 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketId = Number(params.get("id"));
       this.ticketService.
         getTicketDetails(this.ticketId).
-        subscribe((result: TicketDetailsModel)=>this.model = result);
+        subscribe((result: TicketDetailsModel) => this.model = result);
     });
   }
+
+  buyTicket() {
+    this.ticketService.buyTicket(this.ticketId)
+    .subscribe(res => {
+      this.model.numberLeft--;
+      this.model.numberLeft++;
+    });
+  } 
 
 }

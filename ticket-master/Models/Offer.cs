@@ -17,6 +17,6 @@ namespace ticket_master.Models
         public string Description { get; set; }
         public bool Discount { get; set; }
         public decimal DiscountAmount { get; set; }
-        public Ticket Ticket { get; set; }
+        public virtual Ticket Ticket { get; set; }
     }
 }

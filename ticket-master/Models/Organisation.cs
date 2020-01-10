@@ -24,6 +24,6 @@ namespace ticket_master.Models
         public string ZipCode { get; set; }
         public decimal Turnover { get; set; }
 
-        public List<Ticket> Tickets { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

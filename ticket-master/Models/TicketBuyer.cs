@@ -16,6 +16,6 @@ namespace ticket_master.Models
         [Column(TypeName = "datetime")]
         public DateTime DateRegistered { get; set; }
 
-        public List<Bought> Bought { get; set; }
+        public virtual ICollection<Bought> Bought { get; set; }
     }
 }

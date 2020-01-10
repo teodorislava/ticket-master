@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ticket_master.Models;
+using ticket_master.Repositories;
 using ticket_master.ViewModels;
 
 namespace ticket_master.Controllers
@@ -12,61 +14,27 @@ namespace ticket_master.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        public TicketsController()
+        private readonly TicketRepository repository;
+        private readonly UserManager<AuthRootTable> _userManager;
+
+        public TicketsController(TicketRepository repository, UserManager<AuthRootTable> userManager)
         {
+            this.repository = repository;
+            _userManager = userManager;
         }
 
         // GET api/tickets
         [HttpGet("")]
         public ActionResult<IEnumerable<TicketSummaryVM>> GetTickets()
         {
-            return new List<TicketSummaryVM>
-             {
-                 new TicketSummaryVM()
-                 {
-                     Id = 1,
-                     Name = "Ticket 1",
-                     Type = "Avio",
-                     Note = "OO weee",
-                     OrganisationName = "The Flyers"
-                 },
-                 new TicketSummaryVM()
-                 {
-                     Id = 2,
-                     Name = "Ticket 2",
-                     Type = "Concert",
-                     Note = "OO weee 2",
-                     OrganisationName = "The Singers"
-                 },
-                 new TicketSummaryVM()
-                 {
-                     Id = 3,
-                     Name = "Ticket 3",
-                     Type = "Scuba",
-                     Note = "OO weee 3",
-                     OrganisationName = "The Swimmers"
-                 },
-            };
+            return this.repository.GetTickets();
         }
 
         // GET api/tickets/5
         [HttpGet("{id}")]
         public ActionResult<TicketDetailsVM> GetTicketById(int id)
         {
-            return new TicketDetailsVM()
-            {
-                Name = "Ticket 1",
-                Type = "Avio",
-                Note = "OO weee",
-                OrganisationName = "The Flyers",
-                Price = 1500,
-                FullPrice = 2500,
-                Discount = ((decimal)1500)/2500,
-                NumberSold = 15,
-                NumberLeft = 150,
-                ValidFrom = DateTime.Now.AddDays(-1),
-                ValidTo = DateTime.Now.AddDays(1)
-            };
+            return this.repository.GetTicketById(id);
         }
 
         // POST api/tickets
@@ -77,8 +45,13 @@ namespace ticket_master.Controllers
 
         // PUT api/tickets/5
         [HttpPut("{id}")]
-        public void PutTicket(int id, Ticket value)
+        public async Task<ActionResult<TicketBuyer>> PutTicket(int id, Ticket value)
         {
+            int userId = (await _userManager.FindByNameAsync(User.Identity.Name)).TicketBuyerId;
+            if(this.repository.BuyTicket(id, userId))
+                return Ok();
+            else 
+                return this.BadRequest();
         }
 
         // DELETE api/tickets/5

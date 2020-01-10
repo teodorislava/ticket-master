@@ -17,4 +17,8 @@ export class TicketsService {
   getTicketDetails(id:number){
     return this.http.get<TicketDetailsModel>(this.baseUrl + 'api/tickets/' + id);
   }
+
+  buyTicket(id: number) {
+    return this.http.put<{ message: string }>(this.baseUrl + 'api/tickets/' + id, {});
+  }
 }

@@ -1,5 +1,5 @@
 <div class="col-md-8">
-    <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+    <img class="img-fluid" src="https://www.musilon.utwente.nl/wp-content/uploads/2019/04/ticket.png" alt="">
   </div>
 
   <div class="col-md-12">
@@ -7,12 +7,13 @@
     <strong>{{model.note}}</strong>
     <p class="my-6">Pricing details:</p>
     <ul>
-      <li [ngClass]="model.fullPrice != model.price ? 'discount-text' : ''">{{model.fullPrice}}</li>
-      <li>{{model.price}}</li>
-      <li [ngClass]="model.discount > 0.3 ? 'huge-discount' : ''">{{model.discount}}</li>
+      <li [ngClass]="model.fullPrice != model.price ? 'discount-text' : ''">Full Price: {{model.fullPrice}}$</li>
+      <li *ngIf="model.fullPrice != model.price">CurrentPrice: {{model.price}}</li>
+      <li *ngIf="model.fullPrice != model.price" [ngClass]="model.discount > 0.3 ? 'huge-discount' : ''">Discount: {{model.discount * 100}}%</li>
       <li>Number sold : {{model.numberSold}}</li>
-      <li>Number sold : {{model.numberLeft}}</li>
+      <li>Number left : {{model.numberLeft}}</li>
       <li>Valid From : {{this.datePreetyPrint(model.validFrom)}}</li>
       <li>Valid To : {{this.datePreetyPrint(model.validTo)}}</li>
     </ul>
+    <button class="btn btn-lg btn-block btn-outline-primary" (click)="buyTicket()"> Kupi kartu!</button>
   </div>

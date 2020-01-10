@@ -9,9 +9,9 @@ namespace ticket_master.Models
         public string Type { get; set; }
         public string Note { get; set; }
 
-        public List<Offer> Offers { get; set; }
-        public List<Bought> Bought { get; set; }
-        public Organisation Organisation { get; set; }
+        public virtual ICollection<Offer> Offers { get; set; }
+        public virtual ICollection<Bought> Bought { get; set; }
+        public virtual Organisation Organisation { get; set; }
 
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ticket_master.Attributes;
 using ticket_master.Models;
+using ticket_master.Repositories;
 
 namespace ticket_master
 {
@@ -30,7 +31,8 @@ namespace ticket_master
         {
 
                 services.AddDbContext<TicketMasterDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"]));
+                    options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"])
+                    .UseLazyLoadingProxies());
 
 
  services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -64,6 +66,7 @@ namespace ticket_master
                 configuration.RootPath = "ClientApp/dist";
             });
             services.AddSwaggerDocument();
+            services.AddTransient<TicketRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

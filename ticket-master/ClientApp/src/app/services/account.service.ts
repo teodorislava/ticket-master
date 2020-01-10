@@ -12,6 +12,8 @@ export class AccountService {
   constructor(public http: HttpClient, @Inject('BASE_URL') public baseUrl: string,
     private router: Router) { }
 
+  
+
   registerUser(value: RegistrationModel){
     console.log(value);
     this.http.post(this.baseUrl + 'account',  value).subscribe(response => {

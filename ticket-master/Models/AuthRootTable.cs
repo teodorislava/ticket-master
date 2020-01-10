@@ -4,8 +4,9 @@ namespace ticket_master.Models
 {
     public class AuthRootTable : IdentityUser
     {
-        public TicketBuyer TicketBuyer { get; set; }
-        public Organisation Organisation { get; set; }
+        public virtual TicketBuyer TicketBuyer { get; set; }
+        public int TicketBuyerId {get;set;}
+        public virtual Organisation Organisation { get; set; }
         public bool IsOrganisation { get; set; }
     }
 }
