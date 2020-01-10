@@ -1,0 +1,139 @@
+    <div class="form form-vertical">
+        <div class = "row">
+            <div class="col-md-6">
+                <label class="sender-class col-md-4">
+                    Email:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.email}}">
+            </div>
+            <div class="col-md-6">
+                <label class="sender-class col-md-4">
+                    Registered On:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.registeredOn}}">
+            </div>
+        </div>
+        <hr>
+    <div class="row" [hidden]="!model.isOrganisation">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Name:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.name}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Incorporated Date:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.incorporatedDate}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Description:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.description}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Phone Number:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.phoneNumber}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Address Line 1:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.addressLine1}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Address Line 2:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.addressLine2}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Address Line 3:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.addressLine3}}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Country:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.country}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    State:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.state}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    City:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.city}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Zip Code:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.zipCode}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Turnover ($):
+                </label>
+                <input disabled class="form-control col-md-8" type="number" value="{{model.organisation.turnover}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Offers Count:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.organisation.offersCount}}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row" [hidden]="model.isOrganisation">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    First Name:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.ticketBuyer.firstName}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Last Name:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.ticketBuyer.lastName}}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Birthdate:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.ticketBuyer.birthdate}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Gender:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.ticketBuyer.gender}}">
+            </div>
+            <div class="form-group">
+                <label class="sender-class col-md-4">
+                    Bought Count:
+                </label>
+                <input disabled class="form-control col-md-8" type="text" value="{{model.ticketBuyer.boughtCount}}">
+            </div>
+        </div>
+    </div>
+
+</div>

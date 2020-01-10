@@ -32,7 +32,21 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
+            <a class="nav-link text-dark" [routerLink]="['dashboard']">Dashboard</a>            
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
           <a *ngIf = "isOrganisation" class="nav-link text-dark" [routerLink]="['dashboard','new-ticket']">New Ticket</a>
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+          <a class="nav-link text-dark" [routerLink]="['dashboard','user-details']">Profile</a>
           </li>
         </ul>
       </div>

@@ -18,6 +18,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TicketSummaryComponent } from './components/ticket-summary/ticket-summary.component';
 import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
 import { NewTicketComponent } from './components/new-ticket/new-ticket.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NewTicketComponent } from './components/new-ticket/new-ticket.component
     DashboardComponent,
     TicketSummaryComponent,
     TicketDetailsComponent,
-    NewTicketComponent
+    NewTicketComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

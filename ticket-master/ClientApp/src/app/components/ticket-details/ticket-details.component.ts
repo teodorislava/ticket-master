@@ -3,6 +3,7 @@ import { TicketsService } from 'src/app/services/tickets.service';
 import { TicketDetailsModel } from 'src/app/models/ticket-details-model';
 import { ActivatedRoute } from '@angular/router';
 import { isDate } from 'util';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-ticket-details',
@@ -16,6 +17,10 @@ export class TicketDetailsComponent implements OnInit {
   public model: TicketDetailsModel = new TicketDetailsModel();
 
   constructor(private ticketService : TicketsService, private route: ActivatedRoute) { }
+
+  get isOrganisation(){
+    return AccountService.isOrganisation;
+  }
 
   datePreetyPrint(date){
     if(date == null || date == undefined)
@@ -37,11 +42,13 @@ export class TicketDetailsComponent implements OnInit {
   }
 
   buyTicket() {
+    if(this.model.numberLeft > 0){
     this.ticketService.buyTicket(this.ticketId)
     .subscribe(res => {
       this.model.numberLeft--;
-      this.model.numberLeft++;
+      this.model.numberSold++;
     });
   } 
+}
 
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ticket_master.Models;
 using ticket_master.ViewModels;
 
 namespace ticket_master.Repositories
@@ -11,5 +12,6 @@ namespace ticket_master.Repositories
         List<TicketSummaryVM> GetTicketsUnderPrice(decimal price);
         TicketDetailsVM GetTicketById(int id);
         bool BuyTicket(int ticketId, int userId);
+        bool CreateTicket(TicketCreationVM model, Organisation org);
     }
 }

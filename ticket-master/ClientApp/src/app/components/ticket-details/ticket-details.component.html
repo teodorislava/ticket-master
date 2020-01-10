@@ -15,5 +15,5 @@
       <li>Valid From : {{this.datePreetyPrint(model.validFrom)}}</li>
       <li>Valid To : {{this.datePreetyPrint(model.validTo)}}</li>
     </ul>
-    <button class="btn btn-lg btn-block btn-outline-primary" (click)="buyTicket()"> Kupi kartu!</button>
+    <button *ngIf="!isOrganisation" class="btn btn-lg btn-block btn-outline-primary" (click)="buyTicket()"> Kupi kartu!</button>
   </div>

@@ -36,6 +36,34 @@ namespace ticket_master.Repositories
             return true;
         }
 
+        public bool CreateTicket(TicketCreationVM model, Organisation org)
+        {
+            var Ticket = new Ticket()
+            {
+                Name = model.Name,
+                Note = model.Note,
+                Type = model.Type,
+                Organisation = org
+            };
+            var Offer = new Offer()
+            {
+                Name = "Offer for: " + model.Name,
+                FullPrice = model.FullPrice,
+                Capacity = model.Capacity,
+                Current = 0,
+                ValidFrom = model.ValidFrom,
+                ValidTo = model.ValidTo,
+                Description = model.Description,
+                Discount = model.Discount != 0,
+                DiscountAmount = model.Discount,
+                Ticket = Ticket
+            };
+            context.Tickets.Add(Ticket);
+            context.Offers.Add(Offer);
+            context.SaveChanges();
+            return true;
+        }
+
         public TicketDetailsVM GetTicketById(int id)
         {
             return this.context.Offers.Where(o => o.Ticket.Id == id).Select(o => new TicketDetailsVM() {

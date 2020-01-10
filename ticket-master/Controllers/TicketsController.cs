@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ticket_master.Models;
@@ -14,10 +15,10 @@ namespace ticket_master.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        private readonly TicketRepository repository;
+        private readonly ITicketRepository repository;
         private readonly UserManager<AuthRootTable> _userManager;
 
-        public TicketsController(TicketRepository repository, UserManager<AuthRootTable> userManager)
+        public TicketsController(ITicketRepository repository, UserManager<AuthRootTable> userManager)
         {
             this.repository = repository;
             _userManager = userManager;
@@ -39,12 +40,25 @@ namespace ticket_master.Controllers
 
         // POST api/tickets
         [HttpPost("")]
-        public void PostTicket(Ticket value)
+        [Authorize(Policy = "RequireOrganisation")]
+        public async Task<ActionResult> PostTicket(TicketCreationVM value)
         {
+            try
+            {
+                var org = (await _userManager.FindByNameAsync(User.Identity.Name)).Organisation;
+                repository.CreateTicket(value, org);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
 
         // PUT api/tickets/5
         [HttpPut("{id}")]
+        [Authorize(Policy = "RequireClient")]
         public async Task<ActionResult<TicketBuyer>> PutTicket(int id, Ticket value)
         {
             int userId = (await _userManager.FindByNameAsync(User.Identity.Name)).TicketBuyerId;
