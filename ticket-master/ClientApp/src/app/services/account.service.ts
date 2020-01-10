@@ -24,8 +24,7 @@ export class AccountService {
       username: username,
       password: password
     } as LoginModel).subscribe(response => {
-      alert('Was Ok!');
-      this.router.navigate(['login']);
+      this.router.navigate(['dashboard']);
     });
   }
 

@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(value: any){
-    console.log('hello!');
     this.accService.login(value.email, value.password);
   }
 

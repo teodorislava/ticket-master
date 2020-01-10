@@ -1,0 +1,18 @@
+<div class="col-md-8">
+    <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+  </div>
+
+  <div class="col-md-12">
+    <h3 class="my-3">{{model.name}}</h3>
+    <strong>{{model.note}}</strong>
+    <p class="my-6">Pricing details:</p>
+    <ul>
+      <li [ngClass]="model.fullPrice != model.price ? 'discount-text' : ''">{{model.fullPrice}}</li>
+      <li>{{model.price}}</li>
+      <li [ngClass]="model.discount > 0.3 ? 'huge-discount' : ''">{{model.discount}}</li>
+      <li>Number sold : {{model.numberSold}}</li>
+      <li>Number sold : {{model.numberLeft}}</li>
+      <li>Valid From : {{this.datePreetyPrint(model.validFrom)}}</li>
+      <li>Valid To : {{this.datePreetyPrint(model.validTo)}}</li>
+    </ul>
+  </div>

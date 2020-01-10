@@ -1,0 +1,14 @@
+ <div class="card mb-4 box-shadow">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">{{model.type}}</h4>
+    </div>
+    <div class="card-body">
+    <h1 class="card-title pricing-card-title">{{model.name}}</h1>
+    
+      <ul class="list-unstyled mt-3 mb-4">
+      <li>{{model.note}}</li>
+      <li><small class="text-muted">Offered by: {{model.organisationName}}</small></li>
+      </ul>
+      <a class="btn btn-lg btn-block btn-outline-primary" [routerLink]="[model.id]">Open Details</a>
+    </div>
+  </div>

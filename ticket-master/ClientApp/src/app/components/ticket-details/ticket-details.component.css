@@ -1,0 +1,6 @@
+.discount-text{
+    text-decoration: line-through;
+    font-weight: bold;
+    text-decoration-style:  line-through;
+    color: red;
+}

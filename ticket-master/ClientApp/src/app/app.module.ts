@@ -14,6 +14,9 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { appRoutes } from './app.routes';
 import { LoginComponent } from './components/login/login.component';
 import { TicketListComponent } from './components/ticket-list/ticket-list.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TicketSummaryComponent } from './components/ticket-summary/ticket-summary.component';
+import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { TicketListComponent } from './components/ticket-list/ticket-list.compon
     RegisterComponent,
     HomepageComponent,
     LoginComponent,
-    TicketListComponent
+    TicketListComponent,
+    DashboardComponent,
+    TicketSummaryComponent,
+    TicketDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

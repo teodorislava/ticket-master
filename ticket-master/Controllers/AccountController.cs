@@ -113,8 +113,6 @@ namespace ticket_master.Controllers
         public List<object> Uvrede(string uvreda){
             
             return new List<object>() {
-                "Mrzim te",
-                "Umri",
                 User.IsInRole("CLIENT"),
                 User.Identity.IsAuthenticated,
                 //User.Identity.Name,
