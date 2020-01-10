@@ -50,7 +50,7 @@ namespace ticket_master.Controllers
         [HttpPost("")]
         public async Task<ActionResult> Register([FromBody]CreateAccountVM model)
         {
-            var user = new AuthRootTable { UserName = model.Email, Email = model.Email };
+            var user = new AuthRootTable { UserName = model.Email, Email = model.Email, IsOrganisation = model.IsOrganisation };
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -105,8 +105,20 @@ namespace ticket_master.Controllers
         {
             var user = _context.AuthRootTable.FirstOrDefault(x=> x.Email == model.Username);
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
-            return new JsonResult(result);
+            return new JsonResult(user.IsOrganisation);
         }
+        [HttpGet("isUserOrganisation")]
+        public async Task<ActionResult<bool>> IsUserOrganisation(){
+            try
+            {
+                return (await _userManager.FindByNameAsync(User.Identity.Name)).IsOrganisation;
+            } 
+            catch
+            {
+                return false;
+            }
+        }
+        
 
         [HttpDelete]
         [Authorize(Policy = "RequireClient")]

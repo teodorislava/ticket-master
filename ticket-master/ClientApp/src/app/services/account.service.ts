@@ -21,11 +21,21 @@ export class AccountService {
     });
   }
 
+  static isOrganisation : boolean = false;
+
+  isUserOrganisation(){
+    this.http.get(this.baseUrl + 'account/isUserOrganisation')
+    .subscribe((resposne : boolean) => {
+        AccountService.isOrganisation = resposne;
+    });
+  }
+
   login(username: string, password: string){
     this.http.put(this.baseUrl + 'account',  {
       username: username,
       password: password
-    } as LoginModel).subscribe(response => {
+    } as LoginModel).subscribe((response : boolean) => {
+      AccountService.isOrganisation = response;
       this.router.navigate(['dashboard']);
     });
   }
