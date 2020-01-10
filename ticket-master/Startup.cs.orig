@@ -65,8 +65,15 @@ namespace ticket_master
                 configuration.RootPath = "ClientApp/dist";
             });
             services.AddSwaggerDocument();
+<<<<<<< HEAD
+
+            services.AddDbContext<TicketMasterDbContext>(options =>
+                options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"]));
 
             services.AddTransient<TicketRepository>();
+            
+=======
+>>>>>>> origin/master
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ticket_master.Models;
 
 namespace ticket_master.Migrations
 {
     [DbContext(typeof(TicketMasterDbContext))]
-    partial class TicketMasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200106203247_Auth2")]
+    partial class Auth2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -512,7 +514,7 @@ namespace ticket_master.Migrations
             modelBuilder.Entity("ticket_master.Models.Offer", b =>
                 {
                     b.HasOne("ticket_master.Models.Ticket", "Ticket")
-                        .WithMany()
+                        .WithMany("Offers")
                         .HasForeignKey("TicketId");
                 });
 

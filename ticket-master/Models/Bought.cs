@@ -12,7 +12,7 @@ namespace ticket_master.Models
         public string AdditionalInformation1 { get; set; }
         public string AdditionalInformation2 { get; set; }
         public string AdditionalInformation3 { get; set; }
-        public User User { get; set; }
+        public TicketBuyer User { get; set; }
         public Ticket Ticket { get; set; }
         
     }
