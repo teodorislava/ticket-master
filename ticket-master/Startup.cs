@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ticket_master.Models;
+using ticket_master.Repositories;
 
 namespace ticket_master
 {
@@ -32,6 +33,8 @@ namespace ticket_master
 
             services.AddDbContext<TicketMasterDbContext>(options =>
                 options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"]));
+
+            services.AddTransient<TicketRepository>();
             
         }
 

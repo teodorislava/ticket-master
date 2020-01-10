@@ -8,8 +8,7 @@ namespace ticket_master.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public string Note { get; set; }
-
-        public List<Offer> Offers { get; set; }
+        
         public List<Bought> Bought { get; set; }
         public Organisation Organisation { get; set; }
 

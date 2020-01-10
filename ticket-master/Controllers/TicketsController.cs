@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ticket_master.Models;
+using ticket_master.Repositories;
 
 namespace ticket_master.Controllers
 {
@@ -11,15 +12,17 @@ namespace ticket_master.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        public TicketsController()
+        private readonly TicketRepository repository;
+        public TicketsController(TicketRepository repository)
         {
+            this.repository = repository;
         }
 
         // GET api/tickets
         [HttpGet("")]
         public ActionResult<IEnumerable<Ticket>> GetTickets()
         {
-            return new List<Ticket> { };
+            return this.repository.GetTickets();
         }
 
         // GET api/tickets/5
@@ -27,6 +30,24 @@ namespace ticket_master.Controllers
         public ActionResult<Ticket> GetTicketById(int id)
         {
             return null;
+        }
+
+        [HttpGet("type/{type}")]
+        public ActionResult<List<Ticket>> GetTicketsByType(string type)
+        {
+            return this.repository.GetTicketsByType(type);
+        }
+
+        [HttpGet("price/{price}")]
+        public ActionResult<List<Ticket>> GetTicketUnderPrice(decimal price)
+        {
+            return this.repository.GetTicketsUnderPrice(price);
+        }
+
+        [HttpGet("valid")]
+        public ActionResult<List<Ticket>> GetValidTickets()
+        {
+            return this.repository.GetValidTickets();
         }
 
         // POST api/tickets
