@@ -22,28 +22,16 @@ namespace ticket_master.Controllers
         public AccountController(
             SignInManager<AuthRootTable> signInManager,
             UserManager<AuthRootTable> userManager, 
-             //IIdentityServerInteractionService interaction, 
-             IAuthenticationSchemeProvider schemeProvider, 
-            // IClientStore clientStore, 
-             //IEventService events,
              TicketMasterDbContext context
         )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            //_interaction = interaction;
-             _schemeProvider = schemeProvider;
-            // _clientStore = clientStore;
-            // _events = events;
              _context = context;
         }
 
          private readonly SignInManager<AuthRootTable> _signInManager;
         private readonly UserManager<AuthRootTable> _userManager;
-        private readonly IIdentityServerInteractionService _interaction;
-        private readonly IAuthenticationSchemeProvider _schemeProvider;
-        private readonly IClientStore _clientStore;
-        private readonly IEventService _events;
         private readonly TicketMasterDbContext _context;
 
         // POST api/account

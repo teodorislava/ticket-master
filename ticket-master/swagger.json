@@ -6,6 +6,121 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/Account": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Register",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateAccountVM"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Login",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginVM"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Uvrede",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uvreda",
+            "in": "query",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {}
+            }
+          }
+        }
+      }
+    },
+    "/Account/isUserOrganisation": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_IsUserOrganisation",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
     "/api/Bought": {
       "get": {
         "tags": [
@@ -426,6 +541,146 @@
         }
       }
     },
+    "/api/TicketBuyers": {
+      "get": {
+        "tags": [
+          "TicketBuyers"
+        ],
+        "operationId": "TicketBuyers_GetUsers",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TicketBuyer"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TicketBuyers"
+        ],
+        "operationId": "TicketBuyers_PostUser",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "value",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TicketBuyer"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/TicketBuyers/{id}": {
+      "get": {
+        "tags": [
+          "TicketBuyers"
+        ],
+        "operationId": "TicketBuyers_GetUserById",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TicketBuyer"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TicketBuyers"
+        ],
+        "operationId": "TicketBuyers_PutUser",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          },
+          {
+            "name": "value",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TicketBuyer"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TicketBuyers"
+        ],
+        "operationId": "TicketBuyers_DeleteUserById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/Tickets": {
       "get": {
         "tags": [
@@ -444,7 +699,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Ticket"
+                "$ref": "#/definitions/TicketSummaryVM"
               }
             }
           }
@@ -466,14 +721,18 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Ticket"
+              "$ref": "#/definitions/TicketCreationVM"
             },
             "x-nullable": false
           }
         ],
         "responses": {
           "200": {
-            "description": ""
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
           }
         }
       }
@@ -504,7 +763,7 @@
             "x-nullable": false,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/Ticket"
+              "$ref": "#/definitions/TicketDetailsVM"
             }
           }
         }
@@ -518,6 +777,11 @@
           "application/json",
           "text/json",
           "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -540,7 +804,11 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TicketBuyer"
+            }
           }
         }
       },
@@ -566,12 +834,12 @@
         }
       }
     },
-    "/api/Users": {
+    "/User": {
       "get": {
         "tags": [
-          "Users"
+          "User"
         ],
-        "operationId": "Users_GetUsers",
+        "operationId": "User_GetUser",
         "produces": [
           "text/plain",
           "application/json",
@@ -582,126 +850,8 @@
             "x-nullable": false,
             "description": "",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
+              "$ref": "#/definitions/UserVM"
             }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "operationId": "Users_PostUser",
-        "consumes": [
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
-        "parameters": [
-          {
-            "name": "value",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/Users/{id}": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "operationId": "Users_GetUserById",
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "format": "int32",
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Users"
-        ],
-        "operationId": "Users_PutUser",
-        "consumes": [
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "format": "int32",
-            "x-nullable": false
-          },
-          {
-            "name": "value",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Users"
-        ],
-        "operationId": "Users_DeleteUserById",
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "format": "int32",
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
           }
         }
       }
@@ -733,6 +883,97 @@
     }
   },
   "definitions": {
+    "CreateAccountVM": {
+      "type": "object",
+      "required": [
+        "isOrganisation"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "isOrganisation": {
+          "type": "boolean"
+        },
+        "user": {
+          "$ref": "#/definitions/CreateAccountUserVM"
+        },
+        "organisation": {
+          "$ref": "#/definitions/CreateAccountOrganisationVM"
+        }
+      }
+    },
+    "CreateAccountUserVM": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthdate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gender": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateAccountOrganisationVM": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "incorporatedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "addressLine1": {
+          "type": "string"
+        },
+        "addressLine2": {
+          "type": "string"
+        },
+        "addressLine3": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginVM": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
     "Bought": {
       "type": "object",
       "required": [
@@ -763,14 +1004,14 @@
           "type": "string"
         },
         "user": {
-          "$ref": "#/definitions/User"
+          "$ref": "#/definitions/TicketBuyer"
         },
         "ticket": {
           "$ref": "#/definitions/Ticket"
         }
       }
     },
-    "User": {
+    "TicketBuyer": {
       "type": "object",
       "required": [
         "id",
@@ -962,6 +1203,229 @@
           "items": {
             "$ref": "#/definitions/Ticket"
           }
+        }
+      }
+    },
+    "TicketSummaryVM": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "organisationName": {
+          "type": "string"
+        }
+      }
+    },
+    "TicketDetailsVM": {
+      "type": "object",
+      "required": [
+        "price",
+        "fullPrice",
+        "discount",
+        "numberSold",
+        "numberLeft",
+        "validTo",
+        "validFrom"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "organisationName": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "fullPrice": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "discount": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "numberSold": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberLeft": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "validTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "TicketCreationVM": {
+      "type": "object",
+      "required": [
+        "fullPrice",
+        "capacity",
+        "validFrom",
+        "validTo",
+        "discount"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "fullPrice": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "discount": {
+          "type": "number",
+          "format": "decimal"
+        }
+      }
+    },
+    "UserVM": {
+      "type": "object",
+      "required": [
+        "isOrganisation",
+        "registeredOn"
+      ],
+      "properties": {
+        "isOrganisation": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "string"
+        },
+        "registeredOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "organisation": {
+          "$ref": "#/definitions/OrganisationVM"
+        },
+        "ticketBuyer": {
+          "$ref": "#/definitions/TicketBuyerVM"
+        }
+      }
+    },
+    "OrganisationVM": {
+      "type": "object",
+      "required": [
+        "turnover",
+        "offersCount"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "incorporatedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "addressLine1": {
+          "type": "string"
+        },
+        "addressLine2": {
+          "type": "string"
+        },
+        "addressLine3": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "turnover": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "offersCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "TicketBuyerVM": {
+      "type": "object",
+      "required": [
+        "boughtCount"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthdate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "boughtCount": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

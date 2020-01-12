@@ -18,8 +18,10 @@ namespace ticket_master
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseDefaultServiceProvider(options =>
-                    options.ValidateScopes = false)
+                .UseDefaultServiceProvider(options =>{
+                    options.ValidateScopes = false;
+                    options.ValidateOnBuild = true;
+                }).UseConfiguration(new ConfigurationBuilder().Build())
                 .UseStartup<Startup>();
     }
 }

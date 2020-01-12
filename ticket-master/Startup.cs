@@ -29,13 +29,13 @@ namespace ticket_master
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+            services.AddDbContext<TicketMasterDbContext>(options =>
+                options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"])
+                .UseLazyLoadingProxies());
 
-                services.AddDbContext<TicketMasterDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:TicketMaster:ConnectionString"])
-                    .UseLazyLoadingProxies());
 
-
- services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options => {
                 options.Events.OnRedirectToAccessDenied = context => {
                     context.Response.StatusCode = 403;
@@ -56,10 +56,6 @@ namespace ticket_master
                 options.AddPolicy("RequireOrganisation",
                     policy => policy.RequireRole("ORGANISATION"));
             });
-
-            services.AddControllersWithViews();
-            services.AddMvcCore();
-            services.AddRouting();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -72,9 +68,7 @@ namespace ticket_master
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            //app.UseIdentityServer();
-            
+        {   
             var ctx = app.ApplicationServices.GetRequiredService<TicketMasterDbContext>();
             ctx.Database.Migrate();
 
@@ -91,6 +85,7 @@ namespace ticket_master
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -119,9 +114,7 @@ namespace ticket_master
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-
             app.UseOpenApi();
-            app.UseSwaggerUi3();
         }
     }
 }
